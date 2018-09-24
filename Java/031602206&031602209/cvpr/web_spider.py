@@ -1,5 +1,8 @@
 import re
+from multiprocessing import Pool, Manager
 import requests
+from requests.exceptions import ConnectionError
+from functools import partial
 from lxml import etree
 from bs4 import BeautifulSoup
 
@@ -17,43 +20,77 @@ def get_page(url):
 def get_urls():
     text = get_page('http://openaccess.thecvf.com/CVPR2018.py')
     html = etree.HTML(text)
-    urls = html.xpath('//dt/a//@href')
+    links = html.xpath('//dt/a//@href')
+    urls = []
+    for link in links:
+        url = 'http://openaccess.thecvf.com/' + link
+        urls.append(url)
     return urls
 
 
-def main():
-    urls = get_urls()
-    for url in urls:
-        link = 'http://openaccess.thecvf.com/' + url
-        text = get_page(link)
-        if text is None:
-            continue
+def scrape(lock, data, url):
+    try:
+        text = get_page(url)
+
+        pdf_links, abstracts, authors, titles, booktitles, months, years = data
+        # print(text)
         html = etree.HTML(text)
         pdf_link = html.xpath('//a[contains(text(), "pdf")]/@href')[0]
         pdf_link = 'http://openaccess.thecvf.com/' + pdf_link[6:]
-        # print(pdf_link)
 
         abstract = html.xpath('//div[@id="abstract"]/text()')[0]
         abstract = abstract[1:]
-        # print(abstract)
 
         soup = BeautifulSoup(text, 'lxml')
         detail = soup.find(class_="bibref")
-        # print(detail.getText())
+
         regex = '(\w+) = {([\S\xa0 ]+)}'
         results = re.findall(regex, detail.getText())
         author = results[0][1]
-        # print(author)
         title = results[1][1]
-        print(title)
-        print(results)
         booktitle = results[2][1]
-        # print(booktitle)
         month = results[3][1]
-        # print(month)
         year = results[4][1]
-        # print(year)
+        lock.acquire()
+
+        pdf_links.append(pdf_link)
+        abstracts.append(abstract)
+        authors.append(author)
+        titles.append(title)
+        booktitles.append(booktitle)
+        months.append(month)
+        years.append(year)
+
+        lock.release()
+    except ConnectionError:
+        print('Error Occured ', url)
+    finally:
+        print('URL ', url, ' Scraped')
 
 
 if __name__ == '__main__':
-    main()
+    pool = Pool(processes=8)
+    manager = Manager()
+    lock = manager.Lock()
+
+    pdf_links = manager.list()
+    abstracts = manager.list()
+    authors = manager.list()
+    titles = manager.list()
+    booktitles = manager.list()
+    months = manager.list()
+    years = manager.list()
+
+    data = (pdf_links, abstracts, authors, titles, booktitles, months, years)
+
+    partial_scrape = partial(scrape, lock, data)
+    urls = get_urls()
+    pool.map(partial_scrape, urls)
+
+    print(len(pdf_links))
+    print(len(abstracts))
+    print(len(authors))
+    print(len(titles))
+    print(len(booktitles))
+    print(len(months))
+    print(len(years))
