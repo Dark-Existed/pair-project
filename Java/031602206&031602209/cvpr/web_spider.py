@@ -94,3 +94,10 @@ if __name__ == '__main__':
     print(len(booktitles))
     print(len(months))
     print(len(years))
+
+    with open('result.txt', 'w', encoding='utf-8') as file:
+        for i in range(len(titles)):
+            file.write(str(i)+'\n')
+            file.write('Title: ' + titles[i] + '\n')
+            file.write('Abstract: ' + abstracts[i] + '\n')
+            file.write('\n\n')
