@@ -1,0 +1,13 @@
+characters: 25196
+words: 2117
+lines: 109
+<kexiao1816ruangongshijian>: 299
+<says>: 36
+<have>: 24
+<from>: 21
+<been>: 20
+<that>: 19
+<said>: 17
+<they>: 17
+<will>: 14
+<australia>: 13
