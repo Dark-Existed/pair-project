@@ -13,21 +13,15 @@ public class Main {
             path = args[0];
         }
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line).append("\n");
-            }
-            String content = stringBuilder.toString();
-            content = content.replace("\r", "");
+
+            HandleContent handleContent = new HandleContent(path);
 
             CharsCount charsCount = new CharsCount();
-            WordsCount wordsCount = new WordsCount(content);
+            WordsCount wordsCount = new WordsCount(handleContent.getHandledContent());
             LinesCount linesCount = new LinesCount();
 
             int lines = linesCount.linesNumber(path);
-            int characters = charsCount.charsNumber(content);
+            int characters = charsCount.charsNumber(handleContent.getHandledContent());
             int words = wordsCount.getSum();
             List<Map.Entry<String, Integer>> mostList = new CalMost().mostWords(wordsCount.getMap());
 
@@ -43,9 +37,9 @@ public class Main {
 
             printStream.close();
 
-        } catch (IOException e) {
-            System.out.println("File do not exist.");
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.out.println("Output to result.txt failed.");
         }
 
     }
