@@ -6,26 +6,27 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String path;
-        if (args == null || args.length == 0) {
-            path = "test.txt";
-        } else {
-            path = args[0];
-        }
-        try {
+        Parser parser;
 
-            HandleContent handleContent = new HandleContent(path);
+        if (args == null || args.length == 0) {
+            parser = new Parser();
+        } else {
+            parser = new Parser(args);
+        }
+
+        try {
+            HandleContent handleContent = new HandleContent(parser.getI());
 
             CharsCount charsCount = new CharsCount();
             WordsCount wordsCount = new WordsCount(handleContent.getHandledContent());
             LinesCount linesCount = new LinesCount();
 
-            int lines = linesCount.linesNumber(path);
+            int lines = linesCount.linesNumber(parser.getI());
             int characters = charsCount.charsNumber(handleContent.getHandledContent());
             int words = wordsCount.getSum();
             List<Map.Entry<String, Integer>> mostList = new CalMost().mostWords(wordsCount.getMap());
 
-            PrintStream printStream = new PrintStream("result.txt");
+            PrintStream printStream = new PrintStream(parser.getO());
             System.setOut(printStream);
 
             System.out.println("characters: " + characters);
