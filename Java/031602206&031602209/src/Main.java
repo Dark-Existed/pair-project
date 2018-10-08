@@ -40,7 +40,7 @@ public class Main {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("Output to result.txt failed.");
+            System.out.println("Output to " + parser.getO() + " failed.");
         }
 
     }
