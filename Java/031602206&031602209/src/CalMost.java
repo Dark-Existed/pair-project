@@ -15,6 +15,17 @@ public class CalMost {
         return list.size() < 10 ? list.subList(0, list.size()) : list.subList(0, 10);
     }
 
+    /**
+     * @param map the HashMap contain words and amount
+     * @return the top n amount of the words and amount in list
+     */
+    public List<Map.Entry<String, Integer>> mostWords(HashMap<String, Integer> map, int n) {
+        // convert HashMap to list
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        // sort by value then by key
+        list.sort(new MapComparator());
+        return list.size() < n ? list.subList(0, list.size()) : list.subList(0, n);
+    }
 
     /**
      * This class define how to compare the element in list
