@@ -26,36 +26,24 @@ public class WordsCount {
 
 
     /**
-     * @param content the input
+     * @param handleContent the input
+     * @param m the number of words
+     * @param w if count word with weight
      */
-    public WordsCount(String content) {
+    public WordsCount(HandleContent handleContent, int m, int w) {
 
-        String[] temp = content.split("[\\s+\\p{Punct}]+");
-        String countRegex = "^[a-zA-Z]{4,}.*";
-        for (String i : temp) {
-            if (i.matches(countRegex)) {
-                sum++;
-                String lowCase = i.toLowerCase();
-                if (!map.containsKey(lowCase)) {
-                    map.put(lowCase, 1);
-                } else {
-                    int num = map.get(lowCase);
-                    map.put(lowCase, num + 1);
-                }
-            }
-        }
-    }
-
-
-
-    public WordsCount(HandleContent handleContent, int m) {
         HashMap<String, Integer> titlesMap = countContent(handleContent.getTitles(), m);
         HashMap<String, Integer> abstractsMap = countContent(handleContent.getAbstracts(), m);
         sum = getWordsSum(handleContent.getHandledContent());
+        map = mergeMap(titlesMap, abstractsMap, w);
 
     }
 
 
+    /**
+     * @param content the file content
+     * @return the word's number of the content
+     */
     private int getWordsSum(String content) {
         int sum = 0;
         String[] temp = content.split("[\\s+\\p{Punct}]+");
@@ -63,19 +51,24 @@ public class WordsCount {
         for (String i : temp) {
             if (i.matches(countRegex)) {
                 sum++;
-                String lowCase = i.toLowerCase();
-                if (!map.containsKey(lowCase)) {
-                    map.put(lowCase, 1);
-                } else {
-                    int num = map.get(lowCase);
-                    map.put(lowCase, num + 1);
-                }
+//                String lowCase = i.toLowerCase();
+//                if (!map.containsKey(lowCase)) {
+//                    map.put(lowCase, 1);
+//                } else {
+//                    int num = map.get(lowCase);
+//                    map.put(lowCase, num + 1);
+//                }
             }
         }
         return sum;
     }
 
 
+    /**
+     * @param contents the List contents titles or abstracts
+     * @param m the number of words
+     * @return the map contains word and times
+     */
     private HashMap<String, Integer> countContent(List<String> contents, int m) {
         HashMap<String, Integer> map = new HashMap<>();
         String splitRegex = "[\\s+\\p{Punct}]+";
@@ -134,13 +127,28 @@ public class WordsCount {
     }
 
 
+    /**
+     * @param titlesMap the titles map
+     * @param abstractsMap the abstracts map
+     * @param w if count the word with weight
+     * @return merged map
+     */
     private HashMap<String, Integer> mergeMap(HashMap<String, Integer> titlesMap, HashMap<String, Integer> abstractsMap, int w) {
+        int weight = 1;
+        if (w == 1) {
+            weight = 10;
+        }
         HashMap<String, Integer> map = new HashMap<>();
         for (Map.Entry<String, Integer> entry : titlesMap.entrySet()) {
-
+            map.put(entry.getKey(), entry.getValue() * weight);
         }
         for (Map.Entry<String, Integer> entry : abstractsMap.entrySet()) {
-
+            if (!map.containsKey(entry.getKey())) {
+                map.put(entry.getKey(), entry.getValue());
+            } else {
+                int num = map.get(entry.getKey());
+                map.put(entry.getKey(), num + entry.getValue());
+            }
         }
         return map;
     }

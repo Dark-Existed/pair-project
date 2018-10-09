@@ -15,6 +15,7 @@ public class CalMost {
         return list.size() < 10 ? list.subList(0, list.size()) : list.subList(0, 10);
     }
 
+
     /**
      * @param map the HashMap contain words and amount
      * @return the top n amount of the words and amount in list
@@ -26,6 +27,7 @@ public class CalMost {
         list.sort(new MapComparator());
         return list.size() < n ? list.subList(0, list.size()) : list.subList(0, n);
     }
+
 
     /**
      * This class define how to compare the element in list

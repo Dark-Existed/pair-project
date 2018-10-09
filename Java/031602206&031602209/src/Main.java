@@ -18,13 +18,13 @@ public class Main {
             HandleContent handleContent = new HandleContent(parser.getI());
 
             CharsCount charsCount = new CharsCount();
-            WordsCount wordsCount = new WordsCount(handleContent.getHandledContent());
+            WordsCount wordsCount = new WordsCount(handleContent, parser.getM(), parser.getW());
             LinesCount linesCount = new LinesCount();
 
             int lines = linesCount.linesNumber(parser.getI());
             int characters = charsCount.charsNumber(handleContent.getHandledContent());
             int words = wordsCount.getSum();
-            List<Map.Entry<String, Integer>> mostList = new CalMost().mostWords(wordsCount.getMap());
+            List<Map.Entry<String, Integer>> mostList = new CalMost().mostWords(wordsCount.getMap(), parser.getN());
 
             PrintStream printStream = new PrintStream(parser.getO());
             System.setOut(printStream);
