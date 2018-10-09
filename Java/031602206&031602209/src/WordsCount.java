@@ -71,13 +71,15 @@ public class WordsCount {
      */
     private HashMap<String, Integer> countContent(List<String> contents, int m) {
         HashMap<String, Integer> map = new HashMap<>();
-        String splitRegex = "[\\s+\\p{Punct}]+";
+//        String splitRegex = "[\\s+\\p{Punct}]+";
+        String splitRegex = "[\\s+\\p{Punct}&&[^-]]+";
         String splitStartRegex = "^[\\s+\\p{Punct}]+";
         String wordRegex = "^[a-zA-Z]{4,}.*";
         Pattern pattern = Pattern.compile(splitRegex);
 
         for (String content : contents) {
             String[] temp = content.split(splitRegex);
+//            Arrays.asList(temp).forEach(System.out::println);
 
             List<String> splits = new ArrayList<>();
             Matcher matcher = pattern.matcher(content);
@@ -92,8 +94,9 @@ public class WordsCount {
 
                 if (temp[i].matches(wordRegex)) {
                     stringBuilder.append(temp[i]);
+//                    System.out.println(temp[i]);
                 } else {
-                    break;
+                    continue;
                 }
                 boolean isContinue = true;
                 for (int j = 1; j < m; j++) {
