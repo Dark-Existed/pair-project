@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -131,6 +128,18 @@ public class WordsCount {
                 }
 
             }
+
+        }
+        return map;
+    }
+
+
+    private HashMap<String, Integer> mergeMap(HashMap<String, Integer> titlesMap, HashMap<String, Integer> abstractsMap, int w) {
+        HashMap<String, Integer> map = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : titlesMap.entrySet()) {
+
+        }
+        for (Map.Entry<String, Integer> entry : abstractsMap.entrySet()) {
 
         }
         return map;
