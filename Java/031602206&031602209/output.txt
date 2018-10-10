@@ -1,0 +1,18 @@
+characters: 1816
+words: 180
+lines: 2
+<face images with>: 11
+<images with supplementary>: 10
+<with supplementary attributes>: 10
+<achieves superior face>: 1
+<attribute vectors into>: 1
+<attribute-embedded upsampling network>: 1
+<autoencoder with skip-connections>: 1
+<candidate patches, this>: 1
+<conducting extensive evaluations>: 1
+<conventional face hallucination>: 1
+<deconvolutional layers used>: 1
+<demonstrate that supplementing>: 1
+<distorts final results>: 1
+<examine whether super-resolved>: 1
+<exemplar dataset. since>: 1
