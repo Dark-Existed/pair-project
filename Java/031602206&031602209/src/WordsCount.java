@@ -72,7 +72,7 @@ public class WordsCount {
     private HashMap<String, Integer> countContent(List<String> contents, int m) {
         HashMap<String, Integer> map = new HashMap<>();
 //        String splitRegex = "[\\s+\\p{Punct}]+";
-        String splitRegex = "[\\s+\\p{Punct}&&[^-]]+";
+        String splitRegex = "[\\s+\\p{Punct}]+";
         String splitStartRegex = "^[\\s+\\p{Punct}]+";
         String wordRegex = "^[a-zA-Z]{4,}.*";
         Pattern pattern = Pattern.compile(splitRegex);

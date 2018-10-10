@@ -23,19 +23,15 @@ public class Parser {
                     case "-i":
                         i = value;
                         break;
-
                     case "-o":
                         o = value;
                         break;
-
                     case "-w":
                         w = Integer.valueOf(value);
                         break;
-
                     case "-m":
                         m = Integer.valueOf(value);
                         break;
-
                     case "-n":
                         n = Integer.valueOf(value);
                         break;
