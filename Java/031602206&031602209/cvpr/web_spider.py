@@ -41,12 +41,13 @@ def scrape(lock, data, url):
         abstract = html.xpath('//div[@id="abstract"]/text()')[0]
         abstract = abstract[1:]
 
+        author = html.xpath('//i/text()')[0]
+
         soup = BeautifulSoup(text, 'lxml')
         detail = soup.find(class_="bibref")
 
         regex = '(\w+) = {([\S\xa0 ]+)}'
         results = re.findall(regex, detail.getText())
-        author = results[0][1]
         title = results[1][1]
         booktitle = results[2][1]
         month = results[3][1]
@@ -69,7 +70,7 @@ def scrape(lock, data, url):
 
 
 if __name__ == '__main__':
-    pool = Pool(processes=8)
+    pool = Pool(processes=16)
     manager = Manager()
     lock = manager.Lock()
 
