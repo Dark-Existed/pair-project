@@ -1,8 +1,3 @@
 0
-Title: Super-Resolving Very Low-Resolution Face Images With Supplementary Attributes
-Abstract: Given a tiny face image, conventional face hallucination methods aim to super-resolve its high-resolution (HR) counterpart by learning a mapping from an exemplar dataset. Since a low-resolution (LR) input patch may correspond to many HR candidate patches, this ambiguity may lead to erroneous HR facial details and thus distorts final results, such as gender reversal.   An LR input contains low-frequency facial components of its HR version while its residual face image defined as the difference between the HR ground-truth and interpolated LR images contains the missing high-frequency facial details. We demonstrate that supplementing residual images or feature maps with facial attribute information can significantly reduce the ambiguity in face super-resolution.  To explore this idea, we develop an attribute-embedded upsampling network, which consists of an upsampling network and a discriminative network. The upsampling network is composed of an autoencoder with skip-connections, which incorporates facial attribute vectors into the residual features of LR inputs at the bottleneck of the autoencoder and deconvolutional layers used for upsampling. The discriminative network is designed to examine whether super-resolved faces contain the desired attributes or not and then its loss is used for updating the upsampling network. In this manner, we can super-resolve tiny unaligned (16$	imes$16 pixels) face images with a large upscaling factor of 8$	imes$ while reducing the uncertainty of one-to-many mappings significantly. By conducting extensive evaluations on a large-scale dataset, we demonstrate that our method achieves superior face hallucination results and outperforms the state-of-the-art.
-
-
-
-
-
+Title: Monday Tuesday Wednesday Thursday
+Abstract: Monday Tuesday Wednesday Thursday Friday

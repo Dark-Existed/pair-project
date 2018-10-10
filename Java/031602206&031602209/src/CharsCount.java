@@ -16,7 +16,7 @@ public class CharsCount {
         while (matcher.find()) {
             sum++;
         }
-        return sum;
+        return sum - 1;
     }
 
 

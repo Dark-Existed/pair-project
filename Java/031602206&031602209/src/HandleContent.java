@@ -19,11 +19,15 @@ public class HandleContent {
             StringBuilder stringBuilder = new StringBuilder();
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line).append("\n");
+//                stringBuilder.append(line).append("\n");
                 if (line.startsWith("Title:")) {
                     titles.add(line.substring(7));
+                    stringBuilder.append(line.substring(7));
+                    stringBuilder.append("\n");
                 } else if (line.startsWith("Abstract:")) {
                     abstracts.add(line.substring(10));
+                    stringBuilder.append(line.substring(10));
+                    stringBuilder.append("\n");
                 }
             }
             String content = stringBuilder.toString();

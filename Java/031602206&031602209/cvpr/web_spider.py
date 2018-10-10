@@ -101,3 +101,14 @@ if __name__ == '__main__':
             file.write('Title: ' + titles[i] + '\n')
             file.write('Abstract: ' + abstracts[i] + '\n')
             file.write('\n\n')
+
+    with open('all_data.txt', 'w', encoding='utf-8') as file:
+        for i in range(len(titles)):
+            file.write(str(i)+'\n')
+            file.write('Title: ' + titles[i] + '\n')
+            file.write('Authors: ' + authors[i] + '\n')
+            file.write('Abstract: ' + abstracts[i] + '\n')
+            file.write('Booktitle: ' + booktitles[i] + '\n')
+            file.write('PDF Link: ' + pdf_links[i] + '\n')
+            file.write('Time: ' + years[i] + ' ' + months[i])
+            file.write('\n\n')
